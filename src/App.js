@@ -77,7 +77,6 @@ function App() {
       const map = new Datamap({
         scope: "collection",
         height: 600,
-        width: 1200,
         element: document.getElementById("container"),
         setProjection: function (element) {
           const projection = geoMercator()
@@ -121,26 +120,30 @@ function App() {
 
   return (
     <>
-     <Row gutter={[16, 16]} align='middle' justify='center'>
-        <h1 style={{color: '#1B888C'}}>Türkiye Vaka Risk Haritası</h1>
+      <Row gutter={[16, 16]} align="middle" justify="center">
+        <h1 style={{ color: "#1B888C" }}>Türkiye Vaka Risk Haritası</h1>
       </Row>
       <Row gutter={[16, 16]}>
         <Col span={24}>
           <div id="container"></div>
         </Col>
       </Row>
-      <Row gutter={[16,16]} style={{position: 'absolute', bottom: 0, width: '100%', left: 0, padding: 16}}>
-        <Col span={24}>
-          <StatisticComponent />
-        </Col>
-        <Col span={24}>
-          <Alert
-            showIcon
-            type="info"
-            message="Vaka sayıları illerin 2020 yılı nüfus sayısı dikkate alınarak belirlenmiştir."
-          />
-        </Col>
-      </Row>
+      <div
+        style={{ position: "absolute", bottom: 0, left: 0, padding: 16, width: '100%' }}
+      >
+        <Row gutter={[16, 16]} justify='center'>
+          <Col span={24}>
+            <StatisticComponent />
+          </Col>
+          <Col span={24}>
+            <Alert
+              showIcon
+              type="info"
+              message="Vaka sayıları illerin 2020 yılı nüfus sayısı dikkate alınarak belirlenmiştir."
+            />
+          </Col>
+        </Row>
+      </div>
     </>
   );
 }
