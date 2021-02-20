@@ -17,7 +17,7 @@ const cities = [
   },
   {
     "id": 3,
-    "name": "Afyonkarahisar",
+    "name": "Afyon",
     "latitude": "38.7507",
     "longitude": "30.5567",
     "population": 736912,

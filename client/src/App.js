@@ -1,33 +1,51 @@
 import { useEffect, useState } from "react";
-import { Row, Col, Alert } from "antd";
+import { Row, Col, Alert, Spin } from "antd";
 import Datamap from "datamaps";
 import { geoPath, geoMercator } from "d3-geo";
 import cityCaseRatios from "./data/cityCaseRatios";
+import { getCaseRatio } from './api/GetCaseRatio'
 import StatisticComponent from "./components/Statistic";
-import covidData from './api/GetCaseRatio/covidData.json';
 import "./App.css";
 
 function App() {
   const [mapData, setMapData] = useState({});
+  const [cities, setCities] = useState([]);
+  const [loading, setLoading] = useState(false);
+
   const topographyURL =
-    "https://gist.githubusercontent.com/isagul/2887858e1c759e006e604032b0e31c79/raw/d920e3b5416357eb32217d8f4eba2a0c37b8b944/turkey.topo.json";
+    "https://gist.githubusercontent.com/isagul/2887858e1c759e006e604032b0e31c79/raw/98285c0bc21a799ac74e2994b5374d4e916a4535/turkey.topo.json";
 
   useEffect(() => {
-    cityCaseRatios.map(cityCaseRatio => {
-      const findCity = covidData.find(cityCovid => cityCovid.cityName.toLocaleLowerCase() === cityCaseRatio.name.toLocaleLowerCase());
-      if (findCity) {
-        cityCaseRatio['caseRatio'] = findCity.cityCaseRatio;
-        return cityCaseRatio
-      };
-    });
+    handleCaseRatios('https://covid-turkey-case-ratio.herokuapp.com/');
   }, []);
+
+  const handleCaseRatios = (url) => {
+    setLoading(true)
+    getCaseRatio(url)
+    .then(data => {
+      const result = cityCaseRatios.map(cityCaseRatio => {
+        const findCity = data.find(cityCovid => cityCovid.cityName.toLocaleLowerCase() === cityCaseRatio.name.toLocaleLowerCase());
+        if (findCity) {
+          cityCaseRatio['caseRatio'] = findCity.cityCaseRatio;
+          return cityCaseRatio;
+        };
+      });
+      setCities(result);
+    })
+    .catch(err => {
+      console.log(err);
+    })
+    .then(() => {
+      setLoading(false);
+    })
+  }
 
   useEffect(() => {
     let lastMapData = {};
 
     getTurkeyTopology(topographyURL).then((res) => {
       res.objects.collection.geometries.forEach((geometry) => {
-        const findCity = cityCaseRatios.find(
+        const findCity = cities.find(
           (city) =>
             city.name.toLowerCase() === geometry.properties.name.toLowerCase()
         );
@@ -77,7 +95,7 @@ function App() {
       });
       setMapData(lastMapData);
     });
-  }, []);
+  }, [cities]);
 
   useEffect(() => {
     createMap();
@@ -134,11 +152,13 @@ function App() {
       <Row gutter={[16, 16]} align="middle" justify="center">
         <h1 style={{ color: "#1B888C" }}>Türkiye Vaka Risk Haritası</h1>
       </Row>
-      <Row gutter={[16, 16]}>
-        <Col span={24}>
-          <div id="container"></div>
-        </Col>
-      </Row>
+      <Spin spinning={loading}>
+        <Row gutter={[16, 16]}>
+          <Col span={24}>
+            <div id="container"></div>
+          </Col>
+        </Row>
+      </Spin>
       <div
         style={{ position: "absolute", bottom: 0, left: 0, padding: 16, width: '100%' }}
       >
