@@ -3,7 +3,7 @@ import { Row, Col, Alert, Spin } from "antd";
 import Datamap from "datamaps";
 import { geoPath, geoMercator } from "d3-geo";
 import cityCaseRatios from "./data/cityCaseRatios";
-import { getCaseRatio } from './api/GetCaseRatio'
+import { getCaseRatio } from "./api/GetCaseRatio";
 import StatisticComponent from "./components/Statistic";
 import "./App.css";
 
@@ -16,29 +16,33 @@ function App() {
     "https://gist.githubusercontent.com/isagul/2887858e1c759e006e604032b0e31c79/raw/98285c0bc21a799ac74e2994b5374d4e916a4535/turkey.topo.json";
 
   useEffect(() => {
-    handleCaseRatios('https://covid-turkey-case-ratio.herokuapp.com/');
+    handleCaseRatios("https://covid-turkey-case-ratio.herokuapp.com/");
   }, []);
 
   const handleCaseRatios = (url) => {
-    setLoading(true)
+    setLoading(true);
     getCaseRatio(url)
-    .then(data => {
-      const result = cityCaseRatios.map(cityCaseRatio => {
-        const findCity = data.find(cityCovid => cityCovid.cityName.toLocaleLowerCase() === cityCaseRatio.name.toLocaleLowerCase());
-        if (findCity) {
-          cityCaseRatio['caseRatio'] = findCity.cityCaseRatio;
-          return cityCaseRatio;
-        };
+      .then((data) => {
+        const result = cityCaseRatios.map((cityCaseRatio) => {
+          const findCity = data.find(
+            (cityCovid) =>
+              cityCovid.cityName.toLocaleLowerCase() ===
+              cityCaseRatio.name.toLocaleLowerCase()
+          );
+          if (findCity) {
+            cityCaseRatio["caseRatio"] = findCity.cityCaseRatio;
+            return cityCaseRatio;
+          }
+        });
+        setCities(result);
+      })
+      .catch((err) => {
+        console.log(err);
+      })
+      .then(() => {
+        setLoading(false);
       });
-      setCities(result);
-    })
-    .catch(err => {
-      console.log(err);
-    })
-    .then(() => {
-      setLoading(false);
-    })
-  }
+  };
 
   useEffect(() => {
     let lastMapData = {};
@@ -160,11 +164,17 @@ function App() {
         </Row>
       </Spin>
       <div
-        style={{ position: "absolute", bottom: 0, left: 0, padding: 16, width: '100%' }}
+        style={{
+          position: "absolute",
+          bottom: 0,
+          left: 0,
+          padding: 16,
+          width: "100%",
+        }}
       >
-        <Row gutter={[16, 16]} justify='center'>
+        <Row gutter={[16, 16]} justify="center">
           <Col span={24}>
-            <StatisticComponent />
+            <StatisticComponent cities={cities} />
           </Col>
           <Col span={24}>
             <Alert

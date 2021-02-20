@@ -1,13 +1,13 @@
 import { useEffect, useState } from "react";
 import { Row, Col, Statistic, Card } from "antd";
-import cityCaseRatios from '../../data/cityCaseRatios';
+import Proptypes from 'prop-types';
 
-const StatisticComponent = () => {
+const StatisticComponent = ({ cities }) => {
   const [cityInfo, setCityInfo] = useState({});
 
   useEffect(() => {
-    setCityInfo(separateCitiesByStatus(cityCaseRatios))
-  }, []);
+    setCityInfo(separateCitiesByStatus(cities))
+  }, [cities]);
 
   const separateCitiesByStatus = (cities) => {
     const veryGoodCities = cities.filter(city => city.caseRatio <= 10);
@@ -59,5 +59,13 @@ const StatisticComponent = () => {
     </Row>
   );
 };
+
+StatisticComponent.propTypes = {
+  cities: Proptypes.arrayOf(Proptypes.object)
+}
+
+StatisticComponent.defaultProps = {
+  cities: []
+}
 
 export default StatisticComponent;
