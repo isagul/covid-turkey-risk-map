@@ -4,12 +4,23 @@ import Datamap from "datamaps";
 import { geoPath, geoMercator } from "d3-geo";
 import cityCaseRatios from "./data/cityCaseRatios";
 import StatisticComponent from "./components/Statistic";
+import covidData from './api/GetCaseRatio/covidData.json';
 import "./App.css";
 
 function App() {
   const [mapData, setMapData] = useState({});
   const topographyURL =
     "https://gist.githubusercontent.com/isagul/2887858e1c759e006e604032b0e31c79/raw/d920e3b5416357eb32217d8f4eba2a0c37b8b944/turkey.topo.json";
+
+  useEffect(() => {
+    cityCaseRatios.map(cityCaseRatio => {
+      const findCity = covidData.find(cityCovid => cityCovid.cityName.toLocaleLowerCase() === cityCaseRatio.name.toLocaleLowerCase());
+      if (findCity) {
+        cityCaseRatio['caseRatio'] = findCity.cityCaseRatio;
+        return cityCaseRatio
+      };
+    });
+  }, []);
 
   useEffect(() => {
     let lastMapData = {};

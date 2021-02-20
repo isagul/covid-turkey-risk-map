@@ -492,7 +492,7 @@ const cities = [
     "name": "Tunceli",
     "latitude": "39.3074",
     "longitude": "39.4388",
-    "population": 83.443,
+    "population": 83443,
     "caseRatio": 38.96
   },
   {
