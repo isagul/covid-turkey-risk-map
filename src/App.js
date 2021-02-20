@@ -8,7 +8,7 @@ import "./App.css";
 
 function App() {
   const [mapData, setMapData] = useState({});
-
+  const topographyURL = 'https://gist.githubusercontent.com/isagul/2887858e1c759e006e604032b0e31c79/raw/d920e3b5416357eb32217d8f4eba2a0c37b8b944/turkey.topo.json';
   // useEffect(() => {
   //   getData('http://github.com/lydiahallie/javascript-questions');
   // }, []);
@@ -17,7 +17,7 @@ function App() {
     let lastMapData = {};
 
     getTurkeyTopology(
-      "https://gist.githubusercontent.com/isagul/2887858e1c759e006e604032b0e31c79/raw/d920e3b5416357eb32217d8f4eba2a0c37b8b944/turkey.topo.json"
+      topographyURL
     ).then((res) => {
       res.objects.collection.geometries.forEach((geometry) => {
         const findCity = cityCaseRatios.find(
@@ -47,7 +47,6 @@ function App() {
               caseCount: caseCountDaily,
               name: geometry.properties.name,
             };
-            console.log(resultObject);
           } else {
             resultObject[geometry.id] = {
               fillKey: "Çok Yüksek Risk",
@@ -80,8 +79,7 @@ function App() {
           return { path: path, projection: projection };
         },
         geographyConfig: {
-          dataUrl:
-            "https://gist.githubusercontent.com/isagul/2887858e1c759e006e604032b0e31c79/raw/13b3e0292c75d4d9380314fd766a0c63afe55d3d/turkey.topo.json",
+          dataUrl: topographyURL,
           highlightBorderColor: "#1B888C",
           borderColor: "gray",
           highlightFillColor: "#1B888C",
