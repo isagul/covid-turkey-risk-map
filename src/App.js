@@ -1,24 +1,20 @@
 import { useEffect, useState } from "react";
-import { Row, Col } from "antd";
+import { Row, Col, Alert } from "antd";
 import Datamap from "datamaps";
 import { geoPath, geoMercator } from "d3-geo";
-import getData from "./api/CaseRatio";
 import cityCaseRatios from "./data/cityCaseRatios";
+import StatisticComponent from "./components/Statistic";
 import "./App.css";
 
 function App() {
   const [mapData, setMapData] = useState({});
-  const topographyURL = 'https://gist.githubusercontent.com/isagul/2887858e1c759e006e604032b0e31c79/raw/d920e3b5416357eb32217d8f4eba2a0c37b8b944/turkey.topo.json';
-  // useEffect(() => {
-  //   getData('http://github.com/lydiahallie/javascript-questions');
-  // }, []);
+  const topographyURL =
+    "https://gist.githubusercontent.com/isagul/2887858e1c759e006e604032b0e31c79/raw/d920e3b5416357eb32217d8f4eba2a0c37b8b944/turkey.topo.json";
 
   useEffect(() => {
     let lastMapData = {};
 
-    getTurkeyTopology(
-      topographyURL
-    ).then((res) => {
+    getTurkeyTopology(topographyURL).then((res) => {
       res.objects.collection.geometries.forEach((geometry) => {
         const findCity = cityCaseRatios.find(
           (city) =>
@@ -29,28 +25,39 @@ function App() {
           const caseCountDaily = Math.round(
             ((findCity.population / 100000) * findCity.caseRatio) / 7
           );
+          const caseCountWeekly = Math.round(
+            (findCity.population / 100000) * findCity.caseRatio
+          );
           if (findCity.caseRatio <= 10) {
             resultObject[geometry.id] = {
               fillKey: "Düşük Risk",
               caseCount: caseCountDaily,
+              caseCountWeekly: caseCountWeekly,
+              caseRatio: findCity.caseRatio,
               name: geometry.properties.name,
             };
-          } else if (findCity.caseRatio >= 11 && findCity.caseRatio <= 35) {
+          } else if (findCity.caseRatio > 10 && findCity.caseRatio <= 35) {
             resultObject[geometry.id] = {
               fillKey: "Orta Risk",
               caseCount: caseCountDaily,
+              caseCountWeekly: caseCountWeekly,
+              caseRatio: findCity.caseRatio,
               name: geometry.properties.name,
             };
-          } else if (findCity.caseRatio >= 36 && findCity.caseRatio < 100) {
+          } else if (findCity.caseRatio > 35 && findCity.caseRatio < 100) {
             resultObject[geometry.id] = {
               fillKey: "Yüksek Risk",
               caseCount: caseCountDaily,
+              caseCountWeekly: caseCountWeekly,
+              caseRatio: findCity.caseRatio,
               name: geometry.properties.name,
             };
           } else {
             resultObject[geometry.id] = {
               fillKey: "Çok Yüksek Risk",
               caseCount: caseCountDaily,
+              caseCountWeekly: caseCountWeekly,
+              caseRatio: findCity.caseRatio,
               name: geometry.properties.name,
             };
           }
@@ -69,6 +76,8 @@ function App() {
     if (mapData !== undefined && Object.keys(mapData).length > 0) {
       const map = new Datamap({
         scope: "collection",
+        height: 600,
+        width: 1200,
         element: document.getElementById("container"),
         setProjection: function (element) {
           const projection = geoMercator()
@@ -84,12 +93,12 @@ function App() {
           borderColor: "gray",
           highlightFillColor: "#1B888C",
           popupTemplate: function (geography, data) {
-            return (
-              '<div class="hoverinfo">' +
-              `<h3><strong>${data.name}</strong></h3>` +
-              " Günlük Vaka Sayısı:" +
-              data.caseCount
-            );
+            return `<div class="hoverinfo">
+                <div style='text-align:center; font-weight: 600; color:#1B888C; font-size: 18px'>${data.name}</div>
+                <div><strong>Günlük Vaka Sayısı:</strong> <span style='font-weight: 600; color:#1B888C; font-size: 16px'>${data.caseCount}</span></div>
+                <div><strong>Haftalık Vaka Sayısı:</strong> <span style='font-weight: 600; color:#1B888C; font-size: 16px'>${data.caseCountWeekly}</span></div>
+                <div><strong>Haftalık Vaka Oranı:</strong> <span style='font-weight: 600; color:#1B888C; font-size: 16px'>${data.caseRatio}</span></div>
+              </div>`;
           },
           highlightBorderWidth: 3,
         },
@@ -110,19 +119,29 @@ function App() {
     return await fetch(url).then((res) => res.json());
   };
 
-  const getTurkeyCaseRatios = async (url) => {
-    return await fetch(url).then((res) => res.text());
-  };
-
   return (
-    <Row gutter={[16, 16]}>
-      <Col span={24} style={{ textAlign: "center" }}>
-        <h1>Türkiye Covid Risk Haritası</h1>
-      </Col>
-      <Col span={24}>
-        <div id="container"></div>
-      </Col>
-    </Row>
+    <>
+     <Row gutter={[16, 16]} align='middle' justify='center'>
+        <h1 style={{color: '#1B888C'}}>Türkiye Vaka Risk Haritası</h1>
+      </Row>
+      <Row gutter={[16, 16]}>
+        <Col span={24}>
+          <div id="container"></div>
+        </Col>
+      </Row>
+      <Row gutter={[16,16]} style={{position: 'absolute', bottom: 0, width: '100%', left: 0, padding: 16}}>
+        <Col span={24}>
+          <StatisticComponent />
+        </Col>
+        <Col span={24}>
+          <Alert
+            showIcon
+            type="info"
+            message="Vaka sayıları illerin 2020 yılı nüfus sayısı dikkate alınarak belirlenmiştir."
+          />
+        </Col>
+      </Row>
+    </>
   );
 }
 

@@ -4,7 +4,7 @@ const cities = [
     "name": "Adana",
     "latitude": "37.0000",
     "longitude": "35.3213",
-    "population": 2183167,
+    "population": 2258718,
     "caseRatio": 59.95   
   },
   {
@@ -12,7 +12,7 @@ const cities = [
     "name": "Adıyaman",
     "latitude": "37.7648",
     "longitude": "38.2786",
-    "population": 602774,
+    "population": 632459,
     "caseRatio": 100.55
   },
   {
@@ -20,7 +20,7 @@ const cities = [
     "name": "Afyonkarahisar",
     "latitude": "38.7507",
     "longitude": "30.5567",
-    "population": 709015,
+    "population": 736912,
     "caseRatio": 22.32
   },
   {
@@ -28,7 +28,7 @@ const cities = [
     "name": "Ağrı",
     "latitude": "39.7191",
     "longitude": "43.0503",
-    "population": 547210,
+    "population": 535435,
     "caseRatio": 27.50
   },
   {
@@ -36,7 +36,7 @@ const cities = [
     "name": "Amasya",
     "latitude": "40.6499",
     "longitude": "35.8353",
-    "population": 322167,
+    "population": 335494,
     "caseRatio": 96.06
   },
   {
@@ -44,7 +44,7 @@ const cities = [
     "name": "Ankara",
     "latitude": "39.9208",
     "longitude": "32.8541",
-    "population": 5270575,
+    "population": 5663322,
     "caseRatio": 35.49
   },
   {
@@ -52,7 +52,7 @@ const cities = [
     "name": "Antalya",
     "latitude": "36.8841",
     "longitude": "30.7056",
-    "population": 2288456,
+    "population": 2548308,
     "caseRatio": 78.20
   },
   {
@@ -60,7 +60,7 @@ const cities = [
     "name": "Artvin",
     "latitude": "41.1828",
     "longitude": "41.8183",
-    "population": 168370,
+    "population": 169501,
     "caseRatio": 78.42
   },
   {
@@ -68,7 +68,7 @@ const cities = [
     "name": "Aydın",
     "latitude": "37.8560",
     "longitude": "27.8416",
-    "population": 1053506,
+    "population": 1119084,
     "caseRatio": 35.21
   },
   {
@@ -76,7 +76,7 @@ const cities = [
     "name": "Balıkesir",
     "latitude": "39.6484",
     "longitude": "27.8826",
-    "population": 1186688,
+    "population": 1240285,
     "caseRatio": 83.65
   },
   {
@@ -84,7 +84,7 @@ const cities = [
     "name": "Bilecik",
     "latitude": "40.0567",
     "longitude": "30.0665",
-    "population": 212361,
+    "population": 218717,
     "caseRatio": 35.41
   },
   {
@@ -92,7 +92,7 @@ const cities = [
     "name": "Bingöl",
     "latitude": "39.0626",
     "longitude": "40.7696",
-    "population": 267184,
+    "population": 281768,
     "caseRatio": 26.81
   },
   {
@@ -100,7 +100,7 @@ const cities = [
     "name": "Bitlis",
     "latitude": "38.3938",
     "longitude": "42.1232",
-    "population": 267184,
+    "population": 350994,
     "caseRatio": 10.35
   },
   {
@@ -108,7 +108,7 @@ const cities = [
     "name": "Bolu",
     "latitude": "40.5760",
     "longitude": "31.5788",
-    "population": 291095,
+    "population": 314802,
     "caseRatio": 44.96
   },
   {
@@ -116,7 +116,7 @@ const cities = [
     "name": "Burdur",
     "latitude": "37.4613",
     "longitude": "30.0665",
-    "population": 258339,
+    "population": 267092,
     "caseRatio": 75.54
   },
   {
@@ -124,7 +124,7 @@ const cities = [
     "name": "Bursa",
     "latitude": "40.2669",
     "longitude": "29.0634",
-    "population": 2842547,
+    "population": 3101833,
     "caseRatio": 34.87
   },
   {
@@ -140,7 +140,7 @@ const cities = [
     "name": "Çankırı",
     "latitude": "40.6013",
     "longitude": "33.6134",
-    "population": 180945,
+    "population": 192428,
     "caseRatio": 22.86
   },
   {
@@ -148,7 +148,7 @@ const cities = [
     "name": "Çorum",
     "latitude": "40.5506",
     "longitude": "34.9556",
-    "population": 525180,
+    "population": 530126,
     "caseRatio": 35.36
   },
   {
@@ -156,7 +156,7 @@ const cities = [
     "name": "Denizli",
     "latitude": "37.7765",
     "longitude": "29.0864",
-    "population": 993442,
+    "population": 1040915,
     "caseRatio": 32.52
   },
   {
@@ -164,7 +164,7 @@ const cities = [
     "name": "Diyarbakır",
     "latitude": "37.9144",
     "longitude": "40.2306",
-    "population": 1654196,
+    "population": 1783431,
     "caseRatio": 17.53
   },
   {
@@ -172,7 +172,7 @@ const cities = [
     "name": "Edirne",
     "latitude": "41.6818",
     "longitude": "26.5623",
-    "population": 402537,
+    "population": 407763,
     "caseRatio": 65.66
   },
   {
@@ -180,7 +180,7 @@ const cities = [
     "name": "Elazığ",
     "latitude": "38.6810",
     "longitude": "39.2264",
-    "population": 574304,
+    "population": 587960,
     "caseRatio": 50.42
   },
   {
@@ -188,7 +188,7 @@ const cities = [
     "name": "Erzincan",
     "latitude": "39.7500",
     "longitude": "39.5000",
-    "population": 222918,
+    "population": 234431,
     "caseRatio": 60.37
   },
   {
@@ -196,7 +196,7 @@ const cities = [
     "name": "Erzurum",
     "latitude": "39.9000",
     "longitude": "41.2700",
-    "population": 762321,
+    "population": 758279,
     "caseRatio": 37.71
   },
   {
@@ -204,7 +204,7 @@ const cities = [
     "name": "Eskişehir",
     "latitude": "39.7767",
     "longitude": "30.5206",
-    "population": 826716,
+    "population": 888828,
     "caseRatio": 30.99
   },
   {
@@ -212,7 +212,7 @@ const cities = [
     "name": "Gaziantep",
     "latitude": "37.0662",
     "longitude": "37.3833",
-    "population": 1931836,
+    "population": 2101157,
     "caseRatio": 26.72
   },
   {
@@ -220,7 +220,7 @@ const cities = [
     "name": "Giresun",
     "latitude": "40.9128",
     "longitude": "38.3895",
-    "population": 426686,
+    "population": 448721,
     "caseRatio": 184.34
   },
   {
@@ -228,7 +228,7 @@ const cities = [
     "name": "Gümüşhane",
     "latitude": "40.4386",
     "longitude": "39.5086",
-    "population": 151449,
+    "population": 141702,
     "caseRatio": 97.18
   },
   {
@@ -236,7 +236,7 @@ const cities = [
     "name": "Hakkari",
     "latitude": "37.5833",
     "longitude": "43.7333",
-    "population": 278775,
+    "population": 280514,
     "caseRatio": 9.55
   },
   {
@@ -244,7 +244,7 @@ const cities = [
     "name": "Hatay",
     "latitude": "36.4018",
     "longitude": "36.3498",
-    "population": 1533507,
+    "population": 1659320,
     "caseRatio": 62.82
   },
   {
@@ -252,7 +252,7 @@ const cities = [
     "name": "Isparta",
     "latitude": "37.7648",
     "longitude": "30.5566",
-    "population": 421766,
+    "population": 440304,
     "caseRatio": 33.88
   },
   {
@@ -260,7 +260,7 @@ const cities = [
     "name": "Mersin",
     "latitude": "36.8000",
     "longitude": "34.6333",
-    "population": 1745221,
+    "population": 1868757,
     "caseRatio": 90.57
   },
   {
@@ -284,7 +284,7 @@ const cities = [
     "name": "Kars",
     "latitude": "40.6167",
     "longitude": "43.1000",
-    "population": 292660,
+    "population": 284923,
     "caseRatio": 17.79
   },
   {
@@ -292,7 +292,7 @@ const cities = [
     "name": "Kastamonu",
     "latitude": "41.3887",
     "longitude": "33.7827",
-    "population": 372633,
+    "population": 376377,
     "caseRatio": 29.73
   },
   {
@@ -300,7 +300,7 @@ const cities = [
     "name": "Kayseri",
     "latitude": "38.7312",
     "longitude": "35.4787",
-    "population": 1341056,
+    "population": 1421455,
     "caseRatio": 56.71
   },
   {
@@ -308,7 +308,7 @@ const cities = [
     "name": "Kırklareli",
     "latitude": "41.7333",
     "longitude": "27.2167",
-    "population": 346973,
+    "population": 361737,
     "caseRatio": 52.61
   },
   {
@@ -316,7 +316,7 @@ const cities = [
     "name": "Kırşehir",
     "latitude": "39.1425",
     "longitude": "34.1709",
-    "population": 225562,
+    "population": 243042,
     "caseRatio": 29.90
   },
   {
@@ -324,7 +324,7 @@ const cities = [
     "name": "Kocaeli",
     "latitude": "40.8533",
     "longitude": "29.8815",
-    "population": 1780055,
+    "population": 1997258,
     "caseRatio": 88.19
   },
   {
@@ -332,7 +332,7 @@ const cities = [
     "name": "Konya",
     "latitude": "37.8667",
     "longitude": "32.4833",
-    "population": 2130544,
+    "population": 2250020,
     "caseRatio": 90.99
   },
   {
@@ -340,7 +340,7 @@ const cities = [
     "name": "Kütahya",
     "latitude": "39.4167",
     "longitude": "29.9833",
-    "population": 571463,
+    "population": 576688,
     "caseRatio": 50.91
   },
   {
@@ -348,7 +348,7 @@ const cities = [
     "name": "Malatya",
     "latitude": "38.3552",
     "longitude": "38.3095",
-    "population": 772904,
+    "population": 806156,
     "caseRatio": 40.92
   },
   {
@@ -356,7 +356,7 @@ const cities = [
     "name": "Manisa",
     "latitude": "38.6191",
     "longitude": "27.4289",
-    "population": 1380366,
+    "population": 1450616,
     "caseRatio": 42.52
   },
   {
@@ -364,7 +364,7 @@ const cities = [
     "name": "Kahramanmaraş",
     "latitude": "37.5858",
     "longitude": "36.9371",
-    "population": 1096610,
+    "population": 1168163,
     "caseRatio": 39.38
   },
   {
@@ -372,7 +372,7 @@ const cities = [
     "name": "Mardin",
     "latitude": "37.3212",
     "longitude": "40.7245",
-    "population": 796591,
+    "population": 854716,
     "caseRatio": 15.33
   },
   {
@@ -380,7 +380,7 @@ const cities = [
     "name": "Muğla",
     "latitude": "37.2153",
     "longitude": "28.3636",
-    "population": 908877,
+    "population": 1000773,
     "caseRatio": 54.94
   },
   {
@@ -388,7 +388,7 @@ const cities = [
     "name": "Muş",
     "latitude": "38.9462",
     "longitude": "41.7539",
-    "population": 408728,
+    "population": 411117,
     "caseRatio": 16.28
   },
   {
@@ -396,7 +396,7 @@ const cities = [
     "name": "Nevşehir",
     "latitude": "38.6939",
     "longitude": "34.6857",
-    "population": 286767,
+    "population": 304962,
     "caseRatio": 66.16
   },
   {
@@ -404,7 +404,7 @@ const cities = [
     "name": "Niğde",
     "latitude": "37.9667",
     "longitude": "34.6833",
-    "population": 346114,
+    "population": 362071,
     "caseRatio": 54.67
   },
   {
@@ -412,7 +412,7 @@ const cities = [
     "name": "Ordu",
     "latitude": "40.9839",
     "longitude": "37.8764",
-    "population": 728949,
+    "population": 761400,
     "caseRatio": 194.42
   },
   {
@@ -420,7 +420,7 @@ const cities = [
     "name": "Rize",
     "latitude": "41.0201",
     "longitude": "40.5234",
-    "population": 328979,
+    "population": 344359,
     "caseRatio": 202.44
   },
   {
@@ -428,7 +428,7 @@ const cities = [
     "name": "Sakarya",
     "latitude": "40.6940",
     "longitude": "30.4358",
-    "population": 953181,
+    "population": 1042649,
     "caseRatio": 76.77
   },
   {
@@ -436,7 +436,7 @@ const cities = [
     "name": "Samsun",
     "latitude": "41.2928",
     "longitude": "36.3313",
-    "population": 1279884,
+    "population": 1356079,
     "caseRatio": 171.29
   },
   {
@@ -444,7 +444,7 @@ const cities = [
     "name": "Siirt",
     "latitude": "37.9333",
     "longitude": "41.9500",
-    "population": 320351,
+    "population": 331070,
     "caseRatio": 21.37
   },
   {
@@ -460,7 +460,7 @@ const cities = [
     "name": "Sivas",
     "latitude": "39.7477",
     "longitude": "37.0179",
-    "population": 618617,
+    "population": 635889	,
     "caseRatio": 33.08
   },
   {
@@ -476,7 +476,7 @@ const cities = [
     "name": "Tokat",
     "latitude": "40.3167",
     "longitude": "36.5500",
-    "population": 593990,
+    "population": 597861,
     "caseRatio": 118.52
   },
   {
@@ -484,7 +484,7 @@ const cities = [
     "name": "Trabzon",
     "latitude": "41.0015",
     "longitude": "39.7178",
-    "population": 768417,
+    "population": 811901,
     "caseRatio": 228.02
   },
   {
@@ -492,7 +492,7 @@ const cities = [
     "name": "Tunceli",
     "latitude": "39.3074",
     "longitude": "39.4388",
-    "population": 86076,
+    "population": 83.443,
     "caseRatio": 38.96
   },
   {
@@ -500,7 +500,7 @@ const cities = [
     "name": "Şanlıurfa",
     "latitude": "37.1591",
     "longitude": "38.7969",
-    "population": 1892320,
+    "population": 2115256,
     "caseRatio": 27.12
   },
   {
@@ -508,7 +508,7 @@ const cities = [
     "name": "Uşak",
     "latitude": "38.6823",
     "longitude": "29.4082",
-    "population": 353048,
+    "population": 369433,
     "caseRatio": 27.70
   },
   {
@@ -516,7 +516,7 @@ const cities = [
     "name": "Van",
     "latitude": "38.4891",
     "longitude": "43.4089",
-    "population": 1096397,
+    "population": 1149342,
     "caseRatio": 14.89
   },
   {
@@ -524,7 +524,7 @@ const cities = [
     "name": "Yozgat",
     "latitude": "39.8181",
     "longitude": "34.8147",
-    "population": 419440,
+    "population": 419095	,
     "caseRatio": 41.07
   },
   {
@@ -532,7 +532,7 @@ const cities = [
     "name": "Zonguldak",
     "latitude": "41.4564",
     "longitude": "31.7987",
-    "population": 595907,
+    "population": 591204,
     "caseRatio": 54.67
   },
   {
@@ -540,7 +540,7 @@ const cities = [
     "name": "Aksaray",
     "latitude": "38.3687",
     "longitude": "34.0370",
-    "population": 386514,
+    "population": 423011,
     "caseRatio": 92.01
   },
   {
@@ -548,7 +548,7 @@ const cities = [
     "name": "Bayburt",
     "latitude": "40.2552",
     "longitude": "40.2249",
-    "population": 78550,
+    "population": 81910,
     "caseRatio": 60.71
   },
   {
@@ -556,7 +556,7 @@ const cities = [
     "name": "Karaman",
     "latitude": "37.1759",
     "longitude": "33.2287",
-    "population": 242196,
+    "population": 254919,
     "caseRatio": 103.16
   },
   {
@@ -564,7 +564,7 @@ const cities = [
     "name": "Kırıkkale",
     "latitude": "39.8468",
     "longitude": "33.5153",
-    "population": 270271,
+    "population": 278703,
     "caseRatio": 43.23
   },
   {
@@ -572,7 +572,7 @@ const cities = [
     "name": "Batman",
     "latitude": "37.8812",
     "longitude": "41.1351",
-    "population": 566633,
+    "population": 620278	,
     "caseRatio": 12.49
   },
   {
@@ -580,7 +580,7 @@ const cities = [
     "name": "Şırnak",
     "latitude": "37.4187",
     "longitude": "42.4918",
-    "population": 490184,
+    "population": 537762,
     "caseRatio": 7.82
   },
   {
@@ -588,7 +588,7 @@ const cities = [
     "name": "Bartın",
     "latitude": "41.5811",
     "longitude": "32.4610",
-    "population": 190708,
+    "population": 198979,
     "caseRatio": 44.69
   },
   {
@@ -596,7 +596,7 @@ const cities = [
     "name": "Ardahan",
     "latitude": "41.1105",
     "longitude": "42.7022",
-    "population": 99265,
+    "population": 96161,
     "caseRatio": 65.63
   },
   {
@@ -604,7 +604,7 @@ const cities = [
     "name": "Iğdır",
     "latitude": "39.8880",
     "longitude": "44.0048",
-    "population": 192435,
+    "population": 201314,
     "caseRatio": 23.28
   },
   {
@@ -612,7 +612,7 @@ const cities = [
     "name": "Yalova",
     "latitude": "40.6500",
     "longitude": "29.2667",
-    "population": 233009,
+    "population": 276050,
     "caseRatio": 75.17
   },
   {
@@ -620,7 +620,7 @@ const cities = [
     "name": "Karabük",
     "latitude": "41.2061",
     "longitude": "32.6204",
-    "population": 236978,
+    "population": 243614,
     "caseRatio": 34.15
   },
   {
@@ -628,7 +628,7 @@ const cities = [
     "name": "Kilis",
     "latitude": "36.7184",
     "longitude": "37.1212",
-    "population": 130655,
+    "population": 142792	,
     "caseRatio": 51.57
   },
   {
@@ -636,7 +636,7 @@ const cities = [
     "name": "Osmaniye",
     "latitude": "37.2130",
     "longitude": "36.1763",
-    "population": 512873,
+    "population": 548556,
     "caseRatio": 139.81
   },
   {
@@ -644,7 +644,7 @@ const cities = [
     "name": "Düzce",
     "latitude": "40.8438",
     "longitude": "31.1565",
-    "population": 360388,
+    "population": 395679,
     "caseRatio": 43.99
   }
 ]
