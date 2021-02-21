@@ -1,0 +1,24 @@
+{
+  "name": "covid-turkey-risk-map",
+  "version": "1.0.0",
+  "description": "covid turkey risk map",
+  "main": "server.js",
+  "scripts": {
+    "test": "echo \"Error: no test specified\" && exit 1",
+    "start": "nodemon server.js"
+  },
+  "engines": {
+    "node": "6.11.1",
+    "npm": "6.14.6"
+  },
+  "author": "isagul",
+  "license": "ISC",
+  "dependencies": {
+    "body-parser": "^1.19.0",
+    "cheerio": "^1.0.0-rc.5",
+    "cors": "^2.8.5",
+    "express": "^4.17.1",
+    "nodemon": "^2.0.7",
+    "request": "^2.88.2"
+  }
+}
