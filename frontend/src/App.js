@@ -1,5 +1,6 @@
 import { useEffect, useState } from "react";
 import { Row, Col, Alert, Spin } from "antd";
+import { GithubOutlined } from '@ant-design/icons'
 import Datamap from "datamaps";
 import { geoPath, geoMercator } from "d3-geo";
 import cityCaseRatios from "./data/cityCaseRatios";
@@ -107,6 +108,7 @@ function App() {
 
   const createMap = () => {
     if (mapData !== undefined && Object.keys(mapData).length > 0) {
+      console.log(window.innerWidth);
       const map = new Datamap({
         scope: "collection",
         height: 600,
@@ -114,7 +116,7 @@ function App() {
         setProjection: function (element) {
           const projection = geoMercator()
             .center([35.6667, 39.1667]) // turkey coordinates [East Latitude, North Longitude]
-            .scale(3000)
+            .scale(window.innerWidth * 2)
             .translate([element.offsetWidth / 2, element.offsetHeight / 2]);
           const path = geoPath().projection(projection);
           return { path: path, projection: projection };
@@ -159,20 +161,14 @@ function App() {
       <Spin spinning={loading}>
         <Row gutter={[16, 16]}>
           <Col span={24}>
-            <div id="container"></div>
+            <Row gutter={[16, 16]}>
+              <Col span={24}>
+                <div id="container"></div>
+              </Col>
+            </Row>
           </Col>
         </Row>
-      </Spin>
-      <div
-        style={{
-          position: "absolute",
-          bottom: 0,
-          left: 0,
-          padding: 16,
-          width: "100%",
-        }}
-      >
-        <Row gutter={[16, 16]} justify="center">
+        <Row gutter={[16, 16]} style={{ height: 180, marginTop: "3rem" }}>
           <Col span={24}>
             <StatisticComponent cities={cities} />
           </Col>
@@ -180,10 +176,15 @@ function App() {
             <Alert
               showIcon
               type="info"
-              message="Vaka sayıları illerin 2020 yılı nüfus sayısı dikkate alınarak belirlenmiştir."
+              message="Vaka sayıları illerin 2020 yılı nüfus sayısı dikkate alınarak hesaplanmıştır."
             />
           </Col>
         </Row>
+      </Spin>
+      <div className='github-area'>
+        <a href='https://github.com/isagul/covid-turkey-risk-map' target='_blank'>
+          <GithubOutlined />
+        </a>
       </div>
     </>
   );
