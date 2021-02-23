@@ -1,49 +1,28 @@
 import { useEffect, useState } from "react";
-import { Row, Col, Alert, Spin } from "antd";
+import { Row, Col, Alert, Spin, Drawer, Divider } from "antd";
 import { GithubOutlined } from '@ant-design/icons'
 import Datamap from "datamaps";
 import { geoPath, geoMercator } from "d3-geo";
-import cityCaseRatios from "./data/cityCaseRatios";
+import cityPopulation from "./data/cityPopulation";
 import { getCaseRatio } from "./api/GetCaseRatio";
 import StatisticComponent from "./components/Statistic";
 import "./App.css";
+import MapInfoDrawerComponent from "./components/MapInfoDrawer";
 
 function App() {
   const [mapData, setMapData] = useState({});
   const [cities, setCities] = useState([]);
+  const [dateRange, setDateRange] = useState("");
   const [loading, setLoading] = useState(false);
+  const [infoDrawerVisible, setInfoDrawerVisible] = useState(false);
 
   const topographyURL =
     "https://gist.githubusercontent.com/isagul/2887858e1c759e006e604032b0e31c79/raw/438b8a8d419a5059c07ea5115aa65ca7b3f294cd/turkey.topo.json";
 
   useEffect(() => {
-    handleCaseRatios("https://covid-turkey-case-ratio.herokuapp.com/");
+     handleCaseRatios("http://localhost:3001/");
+    // handleCaseRatios("https://covid-turkey-case-ratio.herokuapp.com/");
   }, []);
-
-  const handleCaseRatios = (url) => {
-    setLoading(true);
-    getCaseRatio(url)
-      .then((data) => {
-        const result = cityCaseRatios.map((cityCaseRatio) => {
-          const findCity = data.find(
-            (cityCovid) =>
-              cityCovid.cityName.toLocaleLowerCase() ===
-              cityCaseRatio.name.toLocaleLowerCase()
-          );
-          if (findCity) {
-            cityCaseRatio["caseRatio"] = findCity.cityCaseRatio;
-            return cityCaseRatio;
-          }
-        });
-        setCities(result);
-      })
-      .catch((err) => {
-        console.log(err);
-      })
-      .then(() => {
-        setLoading(false);
-      });
-  };
 
   useEffect(() => {
     let lastMapData = {};
@@ -106,9 +85,42 @@ function App() {
     createMap();
   }, [mapData]);
 
+  const handleCaseRatios = (url) => {
+    setLoading(true);
+    getCaseRatio(url)
+        .then((data) => {
+          setDateRange(data.dateRange);
+          const result = cityPopulation.map((cityCaseRatio) => {
+            const findCity = data.cities.find(
+                (cityCovid) =>
+                    cityCovid.name.toLocaleLowerCase() ===
+                    cityCaseRatio.name.toLocaleLowerCase()
+            );
+            if (findCity) {
+              cityCaseRatio["caseRatio"] = findCity.caseRatio;
+              return cityCaseRatio;
+            }
+          });
+          setCities(result);
+        })
+        .catch((err) => {
+          console.log(err);
+        })
+        .then(() => {
+          setLoading(false);
+        });
+  };
+
+  const showMapInfoDrawer = () => {
+    setInfoDrawerVisible(true);
+  };
+
+  const handleInfoDrawerVisible = value => {
+    setInfoDrawerVisible(value);
+  }
+
   const createMap = () => {
     if (mapData !== undefined && Object.keys(mapData).length > 0) {
-      console.log(window.innerWidth);
       const map = new Datamap({
         scope: "collection",
         height: 600,
@@ -123,15 +135,15 @@ function App() {
         },
         geographyConfig: {
           dataUrl: topographyURL,
-          highlightBorderColor: "#1B888C",
+          highlightBorderColor: "#000",
           borderColor: "gray",
           highlightFillColor: "#1B888C",
           popupTemplate: function (geography, data) {
-            return `<div class="hoverinfo">
+            return `<div class="hoverinfo" style="padding: 10px; border-radius: 2px">
                 <div style='text-align:center; font-weight: 600; color:#1B888C; font-size: 18px'>${data.name}</div>
-                <div><strong>Günlük Vaka Sayısı:</strong> <span style='font-weight: 600; color:#1B888C; font-size: 16px'>${data.caseCount}</span></div>
-                <div><strong>Haftalık Vaka Sayısı:</strong> <span style='font-weight: 600; color:#1B888C; font-size: 16px'>${data.caseCountWeekly}</span></div>
-                <div><strong>Haftalık Vaka Oranı:</strong> <span style='font-weight: 600; color:#1B888C; font-size: 16px'>${data.caseRatio}</span></div>
+                <div><strong>Günlük Vaka Sayısı:</strong> <span style='font-weight: 600; color:#1B888C; font-size: 18px'>${data.caseCount}</span></div>
+                <div><strong>Haftalık Vaka Sayısı:</strong> <span style='font-weight: 600; color:#1B888C; font-size: 18px'>${data.caseCountWeekly}</span></div>
+                <div><strong>Haftalık Vaka Oranı:</strong> <span style='font-weight: 600; color:#1B888C; font-size: 18px'>${data.caseRatio}</span></div>
               </div>`;
           },
           highlightBorderWidth: 3,
@@ -156,14 +168,16 @@ function App() {
   return (
     <>
       <Row gutter={[16, 16]} align="middle" justify="center">
-        <h1 style={{ color: "#1B888C" }}>Türkiye Vaka Risk Haritası</h1>
+        <h1 style={{ color: "#1B888C" }}>Türkiye Vaka Risk Haritası
+          {dateRange.length > 0 && <span> ({dateRange})</span>}
+        </h1>
       </Row>
       <Spin spinning={loading}>
         <Row gutter={[16, 16]}>
           <Col span={24}>
             <Row gutter={[16, 16]}>
               <Col span={24}>
-                <div id="container"></div>
+                <div id="container"/>
               </Col>
             </Row>
           </Col>
@@ -176,7 +190,9 @@ function App() {
             <Alert
               showIcon
               type="info"
-              message="Vaka sayıları illerin 2020 yılı nüfus sayısı dikkate alınarak hesaplanmıştır."
+              message="Harita ile ilgili bilgiler için tıklayınız."
+              onClick={showMapInfoDrawer}
+              style={{cursor: 'pointer'}}
             />
           </Col>
         </Row>
@@ -186,6 +202,7 @@ function App() {
           <GithubOutlined />
         </a>
       </div>
+      <MapInfoDrawerComponent visible={infoDrawerVisible} getInfoDrawerVisible={handleInfoDrawerVisible} />
     </>
   );
 }

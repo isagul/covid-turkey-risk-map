@@ -24,11 +24,15 @@ app.get("/", (req, res) => {
           .replace(",", ".")
           .trim();
         cities.push({
-          cityName,
-          cityCaseRatio,
+          name: cityName,
+          caseRatio: cityCaseRatio,
         });
       });
-      res.send(JSON.stringify(cities));
+      const dateRange = $(".info_box h3").text();
+      res.send(JSON.stringify({
+        dateRange: dateRange,
+        cities: cities
+      }));
     }
   });
 });
