@@ -14,7 +14,7 @@ function App() {
   const [loading, setLoading] = useState(false);
 
   const topographyURL =
-    "https://gist.githubusercontent.com/isagul/2887858e1c759e006e604032b0e31c79/raw/98285c0bc21a799ac74e2994b5374d4e916a4535/turkey.topo.json";
+    "https://gist.githubusercontent.com/isagul/2887858e1c759e006e604032b0e31c79/raw/438b8a8d419a5059c07ea5115aa65ca7b3f294cd/turkey.topo.json";
 
   useEffect(() => {
     handleCaseRatios("https://covid-turkey-case-ratio.herokuapp.com/");
