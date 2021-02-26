@@ -1,5 +1,6 @@
 import { useEffect, useState } from "react";
 import { Row, Col, Statistic, Card } from "antd";
+import caseBorders from '../../constants/CaseBorders';
 import Proptypes from 'prop-types';
 
 const StatisticComponent = ({ cities }) => {
@@ -10,10 +11,10 @@ const StatisticComponent = ({ cities }) => {
   }, [cities]);
 
   const separateCitiesByStatus = (cities) => {
-    const veryGoodCities = cities.filter(city => city.caseRatio <= 10);
-    const goodCities = cities.filter(city => city.caseRatio > 10 && city.caseRatio <= 35);
-    const badCities = cities.filter(city => city.caseRatio > 35 && city.caseRatio < 100);
-    const veryBadCities = cities.filter(city => city.caseRatio >= 100);
+    const veryGoodCities = cities.filter(city => city.caseRatio <= caseBorders.low.riskBorder);
+    const goodCities = cities.filter(city => city.caseRatio > caseBorders.medium.minRiskBorder && city.caseRatio <= caseBorders.medium.maxRiskBorder);
+    const badCities = cities.filter(city => city.caseRatio > caseBorders.bad.minRiskBorder && city.caseRatio < caseBorders.bad.maxRiskBorder);
+    const veryBadCities = cities.filter(city => city.caseRatio >= caseBorders.veryBad.riskBorder);
     return {
       veryGoodCityCount: veryGoodCities.length,
       goodCityCount: goodCities.length,
@@ -24,7 +25,7 @@ const StatisticComponent = ({ cities }) => {
   
   return (
     <Row gutter={[16, 16]}>
-      <Col span={6}>
+      <Col xs={12} sm={12} md={6} lg={6} xl={6}>
         <Card>
           <Statistic
             title="Düşük Riskli İl Sayısı"
@@ -32,7 +33,7 @@ const StatisticComponent = ({ cities }) => {
           />
         </Card>
       </Col>
-      <Col span={6}>
+      <Col xs={12} sm={12} md={6} lg={6} xl={6}>
         <Card>
           <Statistic
             title="Orta Riskli İl Sayısı"
@@ -40,7 +41,7 @@ const StatisticComponent = ({ cities }) => {
           />
         </Card>
       </Col>
-      <Col span={6}>
+      <Col xs={12} sm={12} md={6} lg={6} xl={6}>
         <Card>
           <Statistic
             title="Yüksek Riskli İl Sayısı"
@@ -48,7 +49,7 @@ const StatisticComponent = ({ cities }) => {
           />
         </Card>
       </Col>
-      <Col span={6}>
+      <Col xs={12} sm={12} md={6} lg={6} xl={6}>
         <Card>
           <Statistic
             title="Çok Yüksek Riskli İl Sayısı"
