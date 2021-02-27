@@ -20,7 +20,7 @@ const mapConfig = (element) => {
         geographyConfig: {
           dataUrl: topographyURL,
           highlightBorderColor: "#000",
-          borderColor: "gray",
+          borderColor: "#565252",
           highlightFillColor: "#1B888C",
           popupTemplate: function (geography, data) {
             return `<div class="hoverinfo" style="padding: 10px; border-radius: 2px">
@@ -33,10 +33,10 @@ const mapConfig = (element) => {
           highlightBorderWidth: 3,
         },
         fills: {
-          "Çok Yüksek Risk": "red",
-          "Yüksek Risk": "orange",
-          "Orta Risk": "yellow",
-          "Düşük Risk": "lightblue",
+          "Çok Yüksek Risk": "#CE0404",
+          "Yüksek Risk": "#F08F00",
+          "Orta Risk": "#FEFD05",
+          "Düşük Risk": "#13B3C5",
           defaultFill: "#EDDC4E",
         },
     }

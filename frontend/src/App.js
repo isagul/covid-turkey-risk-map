@@ -118,7 +118,7 @@ function App() {
             </Row>
           </Col>
         </Row>
-        <Row gutter={[16, 16]} style={{ height: 180, marginTop: "3rem" }}>
+        <Row gutter={[16, 16]} style={{ height: 180, marginTop: "3rem", alignItems: 'flex-end' }}>
           <Col span={24}>
             <StatisticComponent cities={cities} />
           </Col>
