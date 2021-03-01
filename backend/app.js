@@ -14,6 +14,7 @@ app.get("/", (req, res) => {
   request("https://covid19.saglik.gov.tr/", function (error, response, html) {
     if (!error) {    
       let cities = [];
+      let dateRange = "";
       const $ = cheerio.load(html);
       $(".il_blocks table tbody tr").each(function (index, el) {
         const cityName = $(el).children("td").first().text().trim();
@@ -28,7 +29,11 @@ app.get("/", (req, res) => {
           caseRatio: cityCaseRatio,
         });
       });
-      const dateRange = $(".info_box h3").text();
+      $(".info_box").each(function (index, el) {
+        if (index === 0) {
+          dateRange = $(el).children("p").text().trim();
+        }
+      });
       res.send(JSON.stringify({
         dateRange: dateRange,
         cities: cities

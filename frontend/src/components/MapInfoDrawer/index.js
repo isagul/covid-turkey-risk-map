@@ -21,24 +21,14 @@ const MapInfoDrawerComponent = ({ visible, getInfoDrawerVisible }) => {
       <h2>Haritadaki İllerin Renklendirilmesi</h2>
       <p>İller, aşağıdaki şartlara göre renklendirilmiştir.</p>
       <ul>
-        <li>Yüz binde 10'un altında vaka görülen iller "düşük riskli",</li>
-        <li>Yüz binde 11-35 arası vaka olan iller "orta riskli",</li>
-        <li>Yüz binde 36-100 arası vakası bulunan iller "yüksek riskli",</li>
+        <li>Yüz binde 20'nin altında vaka görülen iller "düşük riskli",</li>
+        <li>Yüz binde 21-50 arası vaka olan iller "orta riskli",</li>
+        <li>Yüz binde 51-100 arası vakası bulunan iller "yüksek riskli",</li>
         <li>
           Yüz binde 100'ün üstünde vaka seyri görülen iller ise "çok yüksek
           riskli"
         </li>
       </ul>
-      <p>
-        İlgili şartlar{" "}
-        <a
-          href="https://www.bbc.com/turkce/haberler-turkiye-56127235"
-          target="_blank"
-        >
-          linkte
-        </a>{" "}
-        yer alan haberden alınmıştır.
-      </p>
       <Divider />
       <h2>Günlük Vaka Sayısının Belirlenmesi</h2>
       <p>Günlük vaka sayısı belirlenirken aşağıdaki formül baz alınmıştır.</p>

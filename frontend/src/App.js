@@ -6,9 +6,9 @@ import { getCaseRatio } from "./api/GetCaseRatio";
 import { getTurkeyTopology } from "./api/getTurketTopology";
 import StatisticComponent from "./components/Statistic";
 import MapInfoDrawerComponent from "./components/MapInfoDrawer";
-import mapConfig from './utils/MapConfig';
-import caseBorders from './constants/CaseBorders';
-import classificationCitiesByCaseCount from './utils/ClassificationCitiesByCaseCount';
+import mapConfig from "./utils/MapConfig";
+import caseBorders from "./constants/CaseBorders";
+import classificationCitiesByCaseCount from "./utils/ClassificationCitiesByCaseCount";
 import "./App.scss";
 
 function App() {
@@ -61,25 +61,29 @@ function App() {
   const handleCaseRatios = (url) => {
     setLoading(true);
     getCaseRatio(url)
-    .then((data) => {
-      setDateRange(data.dateRange);
-      const result = cityPopulation.map((cityCaseRatio) => {
-        const findCity = data.cities.find(
-          (cityCovid) =>
-            cityCovid.name.toLocaleLowerCase() ===
-            cityCaseRatio.name.toLocaleLowerCase()
-        );
-        if (findCity) {
-          cityCaseRatio["caseRatio"] = findCity.caseRatio;
-          return cityCaseRatio;
+      .then((data) => {
+        if (data.cities.length > 0) {
+          setDateRange(data.dateRange);
+          const result = cityPopulation.map((cityCaseRatio) => {
+            const findCity = data.cities.find(
+              (cityCovid) =>
+                cityCovid.name.toLocaleLowerCase() ===
+                cityCaseRatio.name.toLocaleLowerCase()
+            );
+            if (findCity) {
+              cityCaseRatio["caseRatio"] = findCity.caseRatio;
+              return cityCaseRatio;
+            }
+          });
+          setCities(result);
         }
+      })
+      .catch((err) => {
+        console.log("err :>> ", err);
+      })
+      .then(() => {
+        setLoading(false);
       });
-      setCities(result);
-    }).catch(err => {
-      console.log('err :>> ', err);
-    }).then(() => {
-      setLoading(false);
-    })
   };
 
   const showMapInfoDrawer = () => {
@@ -118,17 +122,13 @@ function App() {
             </Row>
           </Col>
         </Row>
-        <Row gutter={[16, 16]} style={{ height: 180, marginTop: "3rem", alignItems: 'flex-end' }}>
-          <Col span={24}>
-            <StatisticComponent cities={cities} />
-          </Col>
-        </Row>
       </Spin>
       <MapInfoDrawerComponent
         visible={infoDrawerVisible}
         getInfoDrawerVisible={handleInfoDrawerVisible}
       />
       <Col span={24} className="alert-info-box">
+        <StatisticComponent cities={cities} />
         <Alert
           showIcon
           type="info"

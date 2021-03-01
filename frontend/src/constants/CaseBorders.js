@@ -1,13 +1,13 @@
 const caseBorders = {
     low: {
-        riskBorder: 10
+        riskBorder: 20
     },
     medium: {
-        minRiskBorder: 10,
-        maxRiskBorder: 35
+        minRiskBorder: 20,
+        maxRiskBorder: 50
     },
     bad : {
-        minRiskBorder: 35,
+        minRiskBorder: 50,
         maxRiskBorder: 100
     },
     veryBad: {

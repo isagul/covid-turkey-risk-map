@@ -7,7 +7,9 @@ const StatisticComponent = ({ cities }) => {
   const [cityInfo, setCityInfo] = useState({});
 
   useEffect(() => {
-    setCityInfo(separateCitiesByStatus(cities))
+    if (cities.length > 0) {
+      setCityInfo(separateCitiesByStatus(cities))
+    }
   }, [cities]);
 
   const separateCitiesByStatus = (cities) => {
@@ -24,7 +26,7 @@ const StatisticComponent = ({ cities }) => {
   }
   
   return (
-    <Row gutter={[16, 16]}>
+    <Row gutter={[16, 16]} style={{marginBottom: 8}}>
       <Col xs={12} sm={12} md={6} lg={6} xl={6}>
         <Card style={{height: '100%'}}>
           <Statistic
