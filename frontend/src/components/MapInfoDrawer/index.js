@@ -21,9 +21,9 @@ const MapInfoDrawerComponent = ({ visible, getInfoDrawerVisible }) => {
       <h2>Haritadaki İllerin Renklendirilmesi</h2>
       <p>İller, aşağıdaki şartlara göre renklendirilmiştir.</p>
       <ul>
-        <li>Yüz binde 20'nin altında vaka görülen iller "düşük riskli",</li>
-        <li>Yüz binde 21-50 arası vaka olan iller "orta riskli",</li>
-        <li>Yüz binde 51-100 arası vakası bulunan iller "yüksek riskli",</li>
+        <li>Yüz binde 19.99'un altında vaka görülen iller "düşük riskli",</li>
+        <li>Yüz binde 20-49.99 arası vaka olan iller "orta riskli",</li>
+        <li>Yüz binde 50-99.99 arası vakası bulunan iller "yüksek riskli",</li>
         <li>
           Yüz binde 100'ün üstünde vaka seyri görülen iller ise "çok yüksek
           riskli"

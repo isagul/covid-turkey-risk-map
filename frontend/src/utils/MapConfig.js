@@ -12,10 +12,14 @@ const mapConfig = (element) => {
         setProjection: function (element) {
           const projection = geoMercator()
             .center([35.6667, 39.1667]) // turkey coordinates [East Latitude, North Longitude]
-            .scale(window.innerWidth * 2)
-            .translate([element.offsetWidth / 2, element.offsetHeight / 2]);
+            .scale(3000)
           const path = geoPath().projection(projection);
           return { path: path, projection: projection };
+        },
+        done: function (datamap) {
+          const svgElement = datamap.svg[0][0];
+          svgElement.setAttribute("viewBox", "0 0 900 600");
+          svgElement.style.width = "100%";       
         },
         geographyConfig: {
           dataUrl: topographyURL,
@@ -25,7 +29,8 @@ const mapConfig = (element) => {
           popupTemplate: function (geography, data) {
             return `<div class="hoverinfo" style="padding: 10px; border-radius: 2px">
                 <div style='text-align:center; font-weight: 600; color:#1B888C; font-size: 18px'>${data.name}</div>
-                <div><strong>Günlük Vaka Sayısı:</strong> <span style='font-weight: 600; color:#1B888C; font-size: 18px'>${data.caseCount}</span></div>
+                <div style='text-align:center; font-weight: bold; color:${cityStatusColor(data.fillKey)}; font-size: 14px'>${data.fillKey}</div>
+                <div><strong>Ort. Günlük Vaka Sayısı:</strong> <span style='font-weight: 600; color:#1B888C; font-size: 18px'>${data.caseCount}</span></div>
                 <div><strong>Haftalık Vaka Sayısı:</strong> <span style='font-weight: 600; color:#1B888C; font-size: 18px'>${data.caseCountWeekly}</span></div>
                 <div><strong>Haftalık Vaka Oranı:</strong> <span style='font-weight: 600; color:#1B888C; font-size: 18px'>${data.caseRatio}</span></div>
               </div>`;
@@ -35,11 +40,23 @@ const mapConfig = (element) => {
         fills: {
           "Çok Yüksek Risk": "#CE0404",
           "Yüksek Risk": "#F08F00",
-          "Orta Risk": "#FEFD05",
+          "Orta Risk": "#FDE03B",
           "Düşük Risk": "#13B3C5",
           defaultFill: "#EDDC4E",
         },
     }
+}
+
+const cityStatusColor = (status) => {
+  if (status === "Çok Yüksek Risk") {
+    return "#CE0404";
+  } else if (status === "Yüksek Risk") {
+    return "#F08F00";
+  } else if (status === "Orta Risk") {
+    return "#FDE03B";
+  } else {
+    return "#13B3C5";
+  }
 }
 
 export default mapConfig;

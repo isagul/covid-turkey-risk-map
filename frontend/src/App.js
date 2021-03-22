@@ -100,7 +100,7 @@ function App() {
         ...mapConfig(document.getElementById("container")),
         data: mapData,
       });
-      map.legend();
+      // map.legend();
     }
   };
 

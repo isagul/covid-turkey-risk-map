@@ -6,9 +6,9 @@ Bu proje, Sağlık Bakanlığının haftalık açıkladığı illerin nüfuslar�
 
 İller, aşağıdaki şartlara göre renklendirilmiştir.
 
-* Yüz binde 20'nin altında vaka görülen iller "düşük riskli",
-* Yüz binde 21-50 arası vaka olan iller "orta riskli",
-* Yüz binde 51-100 arası vakası bulunan iller "yüksek riskli",
+* Yüz binde 19.99'un altında vaka görülen iller "düşük riskli",
+* Yüz binde 20-49.99 arası vaka olan iller "orta riskli",
+* Yüz binde 50-99.99 arası vakası bulunan iller "yüksek riskli",
 * Yüz binde 100'ün üstünde vaka seyri görülen iller ise "çok yüksek riskli"
 
 İlgili şartlar [linkte](https://www.bbc.com/turkce/haberler-turkiye-56127235) yer alan haberden alınmıştır.
