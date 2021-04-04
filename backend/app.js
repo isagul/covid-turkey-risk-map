@@ -42,6 +42,29 @@ app.get("/", (req, res) => {
   });
 });
 
+app.get("/vaccine", (req, res) => {
+  request("https://covid19asi.saglik.gov.tr/", function (error, response, html) {
+
+    if (!error) {    
+      const data = [];
+      const $ = cheerio.load(html);
+      $(".svg-turkiye-haritasi #turkiye g").each(function (index, el) {
+        const city = $(el);
+        let vaccineInfo = {
+          name: city.attr("data-adi"),
+          total:Number(city.attr("data-toplam").replace(".","")),
+          firstDose: Number(city.attr("data-birinci-doz").replace(".","")),
+          secondDose: Number(city.attr("data-ikinci-doz").replace(".","")),
+        }
+        data.push(vaccineInfo);
+      });
+      res.send(JSON.stringify({
+        result: data
+      }));
+    }
+  });
+});
+
 app.use((req, res, next) => {
   res.header("Access-Control-Allow-Origin", "*");
   res.header(

@@ -3,7 +3,8 @@ import { Row, Col, Alert, Spin } from "antd";
 import Datamap from "datamaps";
 import cityPopulation from "./constants/CityPopulation";
 import { getCaseRatio } from "./api/GetCaseRatio";
-import { getTurkeyTopology } from "./api/getTurketTopology";
+import { getTurkeyTopology } from "./api/GetTurkeyTopology";
+import { getVaccineInfo } from "./api/GetVaccineInfo";
 import StatisticComponent from "./components/Statistic";
 import MapInfoDrawerComponent from "./components/MapInfoDrawer";
 import mapConfig from "./utils/MapConfig";
@@ -18,38 +19,46 @@ function App() {
   const [loading, setLoading] = useState(false);
   const [infoDrawerVisible, setInfoDrawerVisible] = useState(false);
 
+  const apiPrefix = "https://covid-turkey-case-ratio.herokuapp.com"
+
   const topographyURL =
     "https://gist.githubusercontent.com/isagul/2887858e1c759e006e604032b0e31c79/raw/438b8a8d419a5059c07ea5115aa65ca7b3f294cd/turkey.topo.json";
 
   useEffect(() => {
-    handleCaseRatios("https://covid-turkey-case-ratio.herokuapp.com/");
+    handleCaseRatios(apiPrefix);
   }, []);
 
   useEffect(() => {
     if (cities.length > 0) {
-      let lastMapData = {};
 
-      getTurkeyTopology(topographyURL).then((res) => {
-        res.objects.collection.geometries.forEach((geometry) => {
-          const findCity = cities.find(
-            (city) =>
-              city.name.toLowerCase() === geometry.properties.name.toLowerCase()
-          );
-          if (findCity) {
-            let resultObject = {};
-            if (findCity.caseRatio <= caseBorders.low.riskBorder) {
-              resultObject = classificationCitiesByCaseCount(findCity, geometry, "Düşük Risk");
-            } else if (findCity.caseRatio > caseBorders.medium.minRiskBorder && findCity.caseRatio <= caseBorders.medium.maxRiskBorder) {
-              resultObject = classificationCitiesByCaseCount(findCity, geometry, "Orta Risk");
-            } else if (findCity.caseRatio > caseBorders.bad.minRiskBorder && findCity.caseRatio < caseBorders.bad.maxRiskBorder) {
-              resultObject = classificationCitiesByCaseCount(findCity, geometry, "Yüksek Risk");
-            } else {
-              resultObject = classificationCitiesByCaseCount(findCity, geometry, "Çok Yüksek Risk");
+      getVaccineInfo(`${apiPrefix}/vaccine`).then(response => {
+        const { result } = response;
+
+        let lastMapData = {};      
+
+        getTurkeyTopology(topographyURL).then((res) => {
+          res.objects.collection.geometries.forEach((geometry) => {
+            const findCity = cities.find(
+              (city) =>
+                city.name.toLowerCase() === geometry.properties.name.toLowerCase()
+            );
+            // console.log('findCity :>> ', findCity);
+            if (findCity) {
+              let resultObject = {};
+              if (findCity.caseRatio <= caseBorders.low.riskBorder) {
+                resultObject = classificationCitiesByCaseCount(findCity, geometry, "Düşük Risk", result);
+              } else if (findCity.caseRatio > caseBorders.medium.minRiskBorder && findCity.caseRatio <= caseBorders.medium.maxRiskBorder) {
+                resultObject = classificationCitiesByCaseCount(findCity, geometry, "Orta Risk", result);
+              } else if (findCity.caseRatio > caseBorders.bad.minRiskBorder && findCity.caseRatio < caseBorders.bad.maxRiskBorder) {
+                resultObject = classificationCitiesByCaseCount(findCity, geometry, "Yüksek Risk", result);
+              } else {
+                resultObject = classificationCitiesByCaseCount(findCity, geometry, "Çok Yüksek Risk", result);
+              }
+              lastMapData = { ...lastMapData, ...resultObject };
             }
-            lastMapData = { ...lastMapData, ...resultObject };
-          }
+          });
+          setMapData(lastMapData);
         });
-        setMapData(lastMapData);
       });
     }
   }, [cities]);
@@ -75,7 +84,7 @@ function App() {
               return cityCaseRatio;
             }
           });
-          setCities(result);
+          setCities(result);          
         }
       })
       .catch((err) => {

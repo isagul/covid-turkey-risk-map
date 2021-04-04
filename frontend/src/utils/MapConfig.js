@@ -28,11 +28,16 @@ const mapConfig = (element) => {
           highlightFillColor: "#1B888C",
           popupTemplate: function (geography, data) {
             return `<div class="hoverinfo" style="padding: 10px; border-radius: 2px">
-                <div style='text-align:center; font-weight: 600; color:#1B888C; font-size: 18px'>${data.name}</div>
+                <h1 style='text-align:center; font-weight: 600; color:#1B888C; font-size: 18px'>${data.name}</h1>
                 <div style='text-align:center; font-weight: bold; color:${cityStatusColor(data.fillKey)}; font-size: 14px'>${data.fillKey}</div>
                 <div><strong>Ort. Günlük Vaka Sayısı:</strong> <span style='font-weight: 600; color:#1B888C; font-size: 18px'>${data.caseCount}</span></div>
                 <div><strong>Haftalık Vaka Sayısı:</strong> <span style='font-weight: 600; color:#1B888C; font-size: 18px'>${data.caseCountWeekly}</span></div>
                 <div><strong>Haftalık Vaka Oranı:</strong> <span style='font-weight: 600; color:#1B888C; font-size: 18px'>${data.caseRatio}</span></div>
+                <hr />
+                <div><strong>Toplam Yapılan Aşı Sayısı:</strong> <span style='font-weight: 600; color:#1B888C; font-size: 18px'>${data.vaccineInfo[0].total}</span></div>
+                <div><strong>1. Doz Uygulanan Kişi Sayısı:</strong> <span style='font-weight: 600; color:#1B888C; font-size: 18px'>${data.vaccineInfo[0].firstDose}</span></div>
+                <div><strong>2. Doz Uygulanan Kişi Sayısı:</strong> <span style='font-weight: 600; color:#1B888C; font-size: 18px'>${data.vaccineInfo[0].secondDose}</span></div>
+               
               </div>`;
           },
           highlightBorderWidth: 3,
