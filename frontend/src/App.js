@@ -42,7 +42,6 @@ function App() {
               (city) =>
                 city.name.toLowerCase() === geometry.properties.name.toLowerCase()
             );
-            // console.log('findCity :>> ', findCity);
             if (findCity) {
               let resultObject = {};
               if (findCity.caseRatio <= caseBorders.low.riskBorder) {
@@ -59,6 +58,12 @@ function App() {
           });
           setMapData(lastMapData);
         });
+      })
+      .catch((err) => {
+        console.log("err :>> ", err);
+      })
+      .then(() => {
+        setLoading(false);
       });
     }
   }, [cities]);
@@ -90,9 +95,6 @@ function App() {
       .catch((err) => {
         console.log("err :>> ", err);
       })
-      .then(() => {
-        setLoading(false);
-      });
   };
 
   const showMapInfoDrawer = () => {
@@ -137,7 +139,7 @@ function App() {
         getInfoDrawerVisible={handleInfoDrawerVisible}
       />
       <Col span={24} className="alert-info-box">
-        <StatisticComponent cities={cities} />
+        <StatisticComponent cities={cities} mapData={mapData} />
         <Alert
           showIcon
           type="info"

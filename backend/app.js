@@ -52,9 +52,9 @@ app.get("/vaccine", (req, res) => {
         const city = $(el);
         let vaccineInfo = {
           name: city.attr("data-adi"),
-          total:Number(city.attr("data-toplam").replace(".","")),
-          firstDose: Number(city.attr("data-birinci-doz").replace(".","")),
-          secondDose: Number(city.attr("data-ikinci-doz").replace(".","")),
+          total:Number(city.attr("data-toplam").replace(/[.,]/g,"")),
+          firstDose: Number(city.attr("data-birinci-doz").replace(/[.,]/g,"")),
+          secondDose: Number(city.attr("data-ikinci-doz").replace(/[.,]/g,"")),
         }
         data.push(vaccineInfo);
       });
