@@ -28,8 +28,13 @@ import cityPopulation from "constants/CityPopulation";
 // styles
 import "./App.scss";
 
+const apiPrefix = "https://api-covid-turkey.herokuapp.com";
+const topographyURL = "https://gist.githubusercontent.com/isagul/2887858e1c759e006e604032b0e31c79/raw/438b8a8d419a5059c07ea5115aa65ca7b3f294cd/turkey.topo.json";
+
+const localStoreKeyName = "COVID_MAP_THEME"
+
 function App() {
-  const [mapData, setMapData] = useState({});
+  const [mapData, setMapData] = useState(undefined);
   const [cities, setCities] = useState([]);
   const [dateRange, setDateRange] = useState("");
   const [loading, setLoading] = useState(false);
@@ -37,14 +42,14 @@ function App() {
 
   const [theme, setTheme] = useState('light');
 
-  const themeToggler = () => {
-    theme === 'light' ? setTheme('dark') : setTheme('light')
-  }
-
-  const apiPrefix = "https://api-covid-turkey.herokuapp.com"
-
-  const topographyURL =
-    "https://gist.githubusercontent.com/isagul/2887858e1c759e006e604032b0e31c79/raw/438b8a8d419a5059c07ea5115aa65ca7b3f294cd/turkey.topo.json";
+  useEffect(() => {
+    const storageValue = localStorage.getItem(localStoreKeyName);
+    if (storageValue) {
+      setTheme(storageValue);
+    } else {
+      localStorage.setItem(localStoreKeyName, theme);
+    }
+  }, [])
 
   useEffect(() => {
     handleCaseRatios(apiPrefix);
@@ -94,6 +99,17 @@ function App() {
     createMap();
   }, [mapData]);
 
+  const createMap = () => {
+    if (mapData !== undefined) {
+      const map = new Datamap({
+        ...mapConfig(document.getElementById("container"), topographyURL),
+        data: mapData,
+      });
+    }
+
+    // map.legend();
+  };
+
   const handleCaseRatios = (url) => {
     setLoading(true);
     getCaseRatio(url)
@@ -127,31 +143,31 @@ function App() {
     setInfoDrawerVisible(value);
   };
 
-  const createMap = () => {
-    if (mapData !== undefined && Object.keys(mapData).length > 0) {
-      const map = new Datamap({
-        ...mapConfig(document.getElementById("container"), topographyURL),
-        data: mapData,
-      });
-      // map.legend();
+  const themeToggler = () => {
+    if (theme === "light") {
+      setTheme('dark');
+      localStorage.setItem(localStoreKeyName, "dark");
+    } else {
+      setTheme('light');
+      localStorage.setItem(localStoreKeyName, "light");
     }
-  };
+  }
 
   return (
     <ThemeProvider theme={theme === 'light' ? lightTheme : darkTheme}>
       <GlobalStyles />
       <Header theme={theme} onThemeChange={themeToggler} dateRange={dateRange} />
-      <Spin spinning={loading}>
-        <Row gutter={[16, 16]}>
-          <Col span={24}>
-            <Row gutter={[16, 16]}>
-              <Col span={24}>
+      <Row gutter={[16, 16]}>
+        <Col span={24}>
+          <Row gutter={[16, 16]}>
+            <Col span={24}>
+              <Spin spinning={loading}>
                 <div id="container" />
-              </Col>
-            </Row>
-          </Col>
-        </Row>
-      </Spin>
+              </Spin>
+            </Col>
+          </Row>
+        </Col>
+      </Row>
       <MapInfoDrawerComponent
         visible={infoDrawerVisible}
         getInfoDrawerVisible={handleInfoDrawerVisible}
