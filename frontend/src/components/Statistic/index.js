@@ -1,8 +1,15 @@
+import Proptypes from 'prop-types';
 import { useEffect, useState } from "react";
 import { Row, Col, Statistic, Card } from "antd";
-import caseBorders from '../../constants/CaseBorders';
-import Proptypes from 'prop-types';
-import { formatNumbers } from "../../utils/FormatNumbers";
+
+// utils
+import { formatNumbers } from "utils/FormatNumbers";
+
+// constants
+import caseBorders from 'constants/CaseBorders';
+
+// styles
+import './style.scss';
 
 const StatisticComponent = ({ cities, mapData }) => {
   const [cityInfo, setCityInfo] = useState({});

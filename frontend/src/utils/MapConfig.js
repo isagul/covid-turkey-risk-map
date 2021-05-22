@@ -1,9 +1,6 @@
 import { geoPath, geoMercator } from "d3-geo";
 
-const topographyURL =
-    "https://gist.githubusercontent.com/isagul/2887858e1c759e006e604032b0e31c79/raw/438b8a8d419a5059c07ea5115aa65ca7b3f294cd/turkey.topo.json";
-
-const mapConfig = (element) => {
+const mapConfig = (element, topographyURL) => {
     return {
         scope: "collection",
         height: 600,

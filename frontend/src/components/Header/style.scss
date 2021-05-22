@@ -1,0 +1,11 @@
+header {
+    display: flex;
+    justify-content: space-between;
+    align-items: center;
+    .app-title {
+        margin-bottom: 0;
+    }
+    .icon {
+        cursor: pointer;
+    }
+}

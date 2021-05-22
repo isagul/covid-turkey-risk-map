@@ -1,15 +1,31 @@
+import Datamap from "datamaps";
 import { useEffect, useState } from "react";
 import { Row, Col, Alert, Spin } from "antd";
-import Datamap from "datamaps";
-import cityPopulation from "./constants/CityPopulation";
-import { getCaseRatio } from "./api/GetCaseRatio";
-import { getTurkeyTopology } from "./api/GetTurkeyTopology";
-import { getVaccineInfo } from "./api/GetVaccineInfo";
-import StatisticComponent from "./components/Statistic";
-import MapInfoDrawerComponent from "./components/MapInfoDrawer";
-import mapConfig from "./utils/MapConfig";
-import caseBorders from "./constants/CaseBorders";
-import classificationCitiesByCaseCount from "./utils/ClassificationCitiesByCaseCount";
+
+// theme
+import { ThemeProvider } from "styled-components";
+import { GlobalStyles } from "components/Theme/globalStyles";
+import { lightTheme, darkTheme } from "components/Theme/Themes";
+
+// components
+import StatisticComponent from "components/Statistic";
+import MapInfoDrawerComponent from "components/MapInfoDrawer";
+import Header from "components/Header";
+
+// utils
+import mapConfig from "utils/MapConfig";
+import classificationCitiesByCaseCount from "utils/ClassificationCitiesByCaseCount";
+
+// api
+import { getCaseRatio } from "api/GetCaseRatio";
+import { getVaccineInfo } from "api/GetVaccineInfo";
+import { getTurkeyTopology } from "api/GetTurkeyTopology";
+
+// constants
+import caseBorders from "constants/CaseBorders";
+import cityPopulation from "constants/CityPopulation";
+
+// styles
 import "./App.scss";
 
 function App() {
@@ -18,6 +34,12 @@ function App() {
   const [dateRange, setDateRange] = useState("");
   const [loading, setLoading] = useState(false);
   const [infoDrawerVisible, setInfoDrawerVisible] = useState(false);
+
+  const [theme, setTheme] = useState('light');
+
+  const themeToggler = () => {
+    theme === 'light' ? setTheme('dark') : setTheme('light')
+  }
 
   const apiPrefix = "https://api-covid-turkey.herokuapp.com"
 
@@ -34,7 +56,7 @@ function App() {
       getVaccineInfo(`${apiPrefix}/vaccine`).then(response => {
         const { result } = response;
 
-        let lastMapData = {};      
+        let lastMapData = {};
 
         getTurkeyTopology(topographyURL).then((res) => {
           res.objects.collection.geometries.forEach((geometry) => {
@@ -59,12 +81,12 @@ function App() {
           setMapData(lastMapData);
         });
       })
-      .catch((err) => {
-        console.log("err :>> ", err);
-      })
-      .then(() => {
-        setLoading(false);
-      });
+        .catch((err) => {
+          console.log("err :>> ", err);
+        })
+        .then(() => {
+          setLoading(false);
+        });
     }
   }, [cities]);
 
@@ -89,7 +111,7 @@ function App() {
               return cityCaseRatio;
             }
           });
-          setCities(result);          
+          setCities(result);
         }
       })
       .catch((err) => {
@@ -97,8 +119,8 @@ function App() {
       })
   };
 
-  const showMapInfoDrawer = () => {
-    setInfoDrawerVisible(true);
+  const showMapInfoDrawer = (value) => {
+    setInfoDrawerVisible(value);
   };
 
   const handleInfoDrawerVisible = (value) => {
@@ -108,7 +130,7 @@ function App() {
   const createMap = () => {
     if (mapData !== undefined && Object.keys(mapData).length > 0) {
       const map = new Datamap({
-        ...mapConfig(document.getElementById("container")),
+        ...mapConfig(document.getElementById("container"), topographyURL),
         data: mapData,
       });
       // map.legend();
@@ -116,13 +138,9 @@ function App() {
   };
 
   return (
-    <>
-      <Row gutter={[16, 16]} align="middle" justify="center">
-        <h2 style={{ color: "#1B888C" }}>
-          Türkiye Vaka Risk Haritası
-          {dateRange.length > 0 && <span> ({dateRange})</span>}
-        </h2>
-      </Row>
+    <ThemeProvider theme={theme === 'light' ? lightTheme : darkTheme}>
+      <GlobalStyles />
+      <Header theme={theme} onThemeChange={themeToggler} dateRange={dateRange} />
       <Spin spinning={loading}>
         <Row gutter={[16, 16]}>
           <Col span={24}>
@@ -141,14 +159,13 @@ function App() {
       <Col span={24} className="alert-info-box">
         <StatisticComponent cities={cities} mapData={mapData} />
         <Alert
-          showIcon
           type="info"
           message="Harita ile ilgili bilgiler için tıklayınız."
-          onClick={showMapInfoDrawer}
+          onClick={() => showMapInfoDrawer(true)}
           style={{ cursor: "pointer" }}
         />
       </Col>
-    </>
+    </ThemeProvider>
   );
 }
 

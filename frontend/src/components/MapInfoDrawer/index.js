@@ -1,6 +1,6 @@
-import { Divider, Drawer, Button, Row, Col } from "antd";
-import { GithubOutlined } from "@ant-design/icons";
 import Proptypes from "prop-types";
+import { GithubOutlined } from "@ant-design/icons";
+import { Divider, Drawer, Button, Row, Col } from "antd";
 
 const MapInfoDrawerComponent = ({ visible, getInfoDrawerVisible }) => {
   const onClose = () => {
@@ -18,7 +18,7 @@ const MapInfoDrawerComponent = ({ visible, getInfoDrawerVisible }) => {
       headerStyle={{ textAlign: "center" }}
       zIndex={9999}
     >
-      <h2>Haritadaki İllerin Renklendirilmesi</h2>
+      <h2 className="info-title">Haritadaki İllerin Renklendirilmesi</h2>
       <p>İller, aşağıdaki şartlara göre renklendirilmiştir.</p>
       <ul>
         <li>Yüz binde 19.99'un altında vaka görülen iller "düşük riskli",</li>
@@ -30,7 +30,7 @@ const MapInfoDrawerComponent = ({ visible, getInfoDrawerVisible }) => {
         </li>
       </ul>
       <Divider />
-      <h2>Günlük Vaka Sayısının Belirlenmesi</h2>
+      <h2 className="info-title">Günlük Vaka Sayısının Belirlenmesi</h2>
       <p>Günlük vaka sayısı belirlenirken aşağıdaki formül baz alınmıştır.</p>
       <code>(( İl_Nüfusu / 100000 ) * İl_Vaka_Oranı) / 7</code>
       <Divider />
