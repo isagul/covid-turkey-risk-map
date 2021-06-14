@@ -3,7 +3,7 @@ import { createGlobalStyle } from "styled-components";
 export const GlobalStyles = createGlobalStyle`
   body {
     background: ${({ theme }) => theme.body};
-    transition: all 0.50s linear;
+    transition: all 0.2s linear;
   }
 
   .app-title {

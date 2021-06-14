@@ -16,8 +16,8 @@ const Header = ({ theme, dateRange, onThemeChange }) => {
             <div className="icon" onClick={onThemeChange}>
                 {
                     theme === "light" ?
-                        <img height={30} width={30} src={lightThemeIcon} /> :
-                        <img height={30} width={30} src={darkThemeIcon} />
+                        <img height={25} width={25} src={lightThemeIcon} /> :
+                        <img height={25} width={25} src={darkThemeIcon} />
                 }
             </div>
 

@@ -1,6 +1,6 @@
 import Datamap from "datamaps";
+import { Row, Col, Spin } from "antd";
 import { useEffect, useState } from "react";
-import { Row, Col, Alert, Spin } from "antd";
 
 // theme
 import { ThemeProvider } from "styled-components";
@@ -8,9 +8,9 @@ import { GlobalStyles } from "components/Theme/globalStyles";
 import { lightTheme, darkTheme } from "components/Theme/Themes";
 
 // components
-import StatisticComponent from "components/Statistic";
-import MapInfoDrawerComponent from "components/MapInfoDrawer";
 import Header from "components/Header";
+import Footer from "components/Footer";
+import MapInfoDrawerComponent from "components/MapInfoDrawer";
 
 // utils
 import mapConfig from "utils/MapConfig";
@@ -28,7 +28,7 @@ import cityPopulation from "constants/CityPopulation";
 // styles
 import "./App.scss";
 
-const apiPrefix = "https://api-covid-turkey.herokuapp.com";
+const apiPrefix = "https://covid-turkey-case-ratio.herokuapp.com";
 const topographyURL = "https://gist.githubusercontent.com/isagul/2887858e1c759e006e604032b0e31c79/raw/438b8a8d419a5059c07ea5115aa65ca7b3f294cd/turkey.topo.json";
 
 const localStoreKeyName = "COVID_MAP_THEME"
@@ -73,9 +73,9 @@ function App() {
               let resultObject = {};
               if (findCity.caseRatio <= caseBorders.low.riskBorder) {
                 resultObject = classificationCitiesByCaseCount(findCity, geometry, "Düşük Risk", result);
-              } else if (findCity.caseRatio > caseBorders.medium.minRiskBorder && findCity.caseRatio <= caseBorders.medium.maxRiskBorder) {
+              } else if (findCity.caseRatio >= caseBorders.medium.minRiskBorder && findCity.caseRatio <= caseBorders.medium.maxRiskBorder) {
                 resultObject = classificationCitiesByCaseCount(findCity, geometry, "Orta Risk", result);
-              } else if (findCity.caseRatio > caseBorders.bad.minRiskBorder && findCity.caseRatio < caseBorders.bad.maxRiskBorder) {
+              } else if (findCity.caseRatio >= caseBorders.bad.minRiskBorder && findCity.caseRatio <= caseBorders.bad.maxRiskBorder) {
                 resultObject = classificationCitiesByCaseCount(findCity, geometry, "Yüksek Risk", result);
               } else {
                 resultObject = classificationCitiesByCaseCount(findCity, geometry, "Çok Yüksek Risk", result);
@@ -135,7 +135,7 @@ function App() {
       })
   };
 
-  const showMapInfoDrawer = (value) => {
+  const handleMapInfoDrawerVisible = (value) => {
     setInfoDrawerVisible(value);
   };
 
@@ -172,15 +172,7 @@ function App() {
         visible={infoDrawerVisible}
         getInfoDrawerVisible={handleInfoDrawerVisible}
       />
-      <Col span={24} className="alert-info-box">
-        <StatisticComponent cities={cities} mapData={mapData} />
-        <Alert
-          type="info"
-          message="Harita ile ilgili bilgiler için tıklayınız."
-          onClick={() => showMapInfoDrawer(true)}
-          style={{ cursor: "pointer" }}
-        />
-      </Col>
+      <Footer cities={cities} mapData={mapData} getMapInfoDrawerVisible={handleMapInfoDrawerVisible} />
     </ThemeProvider>
   );
 }

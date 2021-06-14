@@ -14,6 +14,8 @@ import './style.scss';
 const StatisticComponent = ({ cities, mapData }) => {
   const [cityInfo, setCityInfo] = useState({});
   const [totalWeeklyCaseCount, setTotalWeeklyCaseCount] = useState(0);
+  const [firstDoseVaccineCount, setFirstDoseVaccineCount] = useState(0);
+  const [secondDoseVaccineCount, setSecondDoseVaccineCount] = useState(0);
   const [totalVaccineCount, setTotalVaccineCount] = useState(0);
 
   useEffect(() => {
@@ -25,20 +27,28 @@ const StatisticComponent = ({ cities, mapData }) => {
   useEffect(() => {
     if (Object.keys(mapData).length > 0) {
       let weeklyCaseCountTotal = 0;
+      let firstDoseVaccineCountTotal = 0;
+      let secondDoseVaccineCountTotal = 0;
       let vaccineCountTotal = 0;
+
       for (const key in mapData) {       
         weeklyCaseCountTotal += Number(mapData[key].caseCountWeekly.replace(/[.,]/g, ""));
         vaccineCountTotal += Number(mapData[key].vaccineInfo[0].total.replace(/[.,]/g, ""));
+        firstDoseVaccineCountTotal += Number(mapData[key].vaccineInfo[0].firstDose.replace(/[.,]/g, ""));
+        secondDoseVaccineCountTotal += Number(mapData[key].vaccineInfo[0].secondDose.replace(/[.,]/g, ""));
       }
+      
       setTotalWeeklyCaseCount(formatNumbers(weeklyCaseCountTotal));
+      setFirstDoseVaccineCount(formatNumbers(firstDoseVaccineCountTotal));
+      setSecondDoseVaccineCount(formatNumbers(secondDoseVaccineCountTotal));
       setTotalVaccineCount(formatNumbers(vaccineCountTotal));
     }
   }, [mapData])
 
   const separateCitiesByStatus = (cities) => {
     const veryGoodCities = cities.filter(city => city.caseRatio <= caseBorders.low.riskBorder);
-    const goodCities = cities.filter(city => city.caseRatio > caseBorders.medium.minRiskBorder && city.caseRatio <= caseBorders.medium.maxRiskBorder);
-    const badCities = cities.filter(city => city.caseRatio > caseBorders.bad.minRiskBorder && city.caseRatio < caseBorders.bad.maxRiskBorder);
+    const goodCities = cities.filter(city => city.caseRatio >= caseBorders.medium.minRiskBorder && city.caseRatio <= caseBorders.medium.maxRiskBorder);
+    const badCities = cities.filter(city => city.caseRatio >= caseBorders.bad.minRiskBorder && city.caseRatio <= caseBorders.bad.maxRiskBorder);
     const veryBadCities = cities.filter(city => city.caseRatio >= caseBorders.veryBad.riskBorder);
     return {
       veryGoodCityCount: veryGoodCities.length,
@@ -61,24 +71,24 @@ const StatisticComponent = ({ cities, mapData }) => {
       <Col xs={12} sm={12} md={6} lg={6} xl={6}>
         <Card style={{height: '100%'}}>
           <Statistic
+            title="1.Doz Uygulanan Kişi Sayısı"
+            value={firstDoseVaccineCount}
+          />
+        </Card>
+      </Col>
+      <Col xs={12} sm={12} md={6} lg={6} xl={6}>
+        <Card style={{height: '100%'}}>
+          <Statistic
+            title="2.Doz Uygulanan Kişi Sayısı"
+            value={secondDoseVaccineCount}
+          />
+        </Card>
+      </Col>
+      <Col xs={12} sm={12} md={6} lg={6} xl={6}>
+        <Card style={{height: '100%'}}>
+          <Statistic
             title="Toplam Yapılan Aşı Sayısı"
             value={totalVaccineCount}
-          />
-        </Card>
-      </Col>
-      <Col xs={12} sm={12} md={6} lg={6} xl={6}>
-        <Card style={{height: '100%'}}>
-          <Statistic
-            title="Düşük Riskli İl Sayısı"
-            value={cityInfo.veryGoodCityCount}
-          />
-        </Card>
-      </Col>
-      <Col xs={12} sm={12} md={6} lg={6} xl={6}>
-        <Card style={{height: '100%'}}>
-          <Statistic
-            title="Çok Yüksek Riskli İl Sayısı"
-            value={cityInfo.veryBadCityCount}
           />
         </Card>
       </Col>
