@@ -1,10 +1,9 @@
 import Proptypes from 'prop-types';
+import darkTheme from 'images/darkTheme.png';
+import lightTheme from 'images/lightTheme.webp';
 
 // styles
 import './style.scss';
-
-const lightThemeIcon = "https://cdn.iconscout.com/icon/free/png-256/sun-bright-rays-sunny-weather-33960.png"
-const darkThemeIcon = "https://pics.freeicons.io/uploads/icons/png/10940529141579174130-512.png";
 
 const Header = ({ theme, dateRange, onThemeChange }) => {
     return (
@@ -16,8 +15,8 @@ const Header = ({ theme, dateRange, onThemeChange }) => {
             <div className="icon" onClick={onThemeChange}>
                 {
                     theme === "light" ?
-                        <img height={25} width={25} src={lightThemeIcon} /> :
-                        <img height={25} width={25} src={darkThemeIcon} />
+                        <img height={25} width={25} src={lightTheme} /> :
+                        <img height={25} width={25} src={darkTheme} />
                 }
             </div>
 
