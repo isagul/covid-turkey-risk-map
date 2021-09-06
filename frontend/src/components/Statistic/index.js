@@ -61,8 +61,8 @@ const StatisticComponent = ({ cities, mapData }) => {
   }
 
   return (
-    <Row gutter={[16, 16]} style={{ marginBottom: 8 }}>
-      <Col xs={12} sm={12} md={6} lg={6} xl={6}>
+    <Row gutter={[16, 16]} style={{ marginBottom: 8, justifyContent: 'center' }}>
+      <Col xs={12} sm={12} md={4} lg={4} xl={4}>
         <Card style={{ height: '100%' }}>
           <Statistic
             title="Toplam Haftalık Vaka Sayısı"
@@ -70,7 +70,7 @@ const StatisticComponent = ({ cities, mapData }) => {
           />
         </Card>
       </Col>
-      <Col xs={12} sm={12} md={6} lg={6} xl={6}>
+      <Col xs={12} sm={12} md={4} lg={4} xl={4}>
         <Card style={{ height: '100%' }}>
           <Statistic
             title="Düşük Riskli İl Sayısı"
@@ -78,7 +78,15 @@ const StatisticComponent = ({ cities, mapData }) => {
           />
         </Card>
       </Col>
-      <Col xs={12} sm={12} md={6} lg={6} xl={6}>
+      <Col xs={12} sm={12} md={4} lg={4} xl={4}>
+        <Card style={{ height: '100%' }}>
+          <Statistic
+            title="Orta Riskli İl Sayısı"
+            value={cityInfo.goodCityCount}
+          />
+        </Card>
+      </Col>
+      <Col xs={12} sm={12} md={4} lg={4} xl={4}>
         <Card style={{ height: '100%' }}>
           <Statistic
             title="Yüksek Riskli İl Sayısı"
@@ -86,10 +94,10 @@ const StatisticComponent = ({ cities, mapData }) => {
           />
         </Card>
       </Col>
-      <Col xs={12} sm={12} md={6} lg={6} xl={6}>
+      <Col xs={12} sm={12} md={4} lg={4} xl={4}>
         <Card style={{ height: '100%' }}>
           <Statistic
-            title="Yüksek Riskli İl Sayısı"
+            title="Çok Yüksek Riskli İl Sayısı"
             value={cityInfo.veryBadCityCount}
           />
         </Card>

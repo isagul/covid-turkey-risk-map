@@ -9,7 +9,8 @@ const Footer = ({ cities, mapData, getMapInfoDrawerVisible }) => {
 
     return (
         <div className="alert-info-box">
-            <StatisticComponent cities={cities} mapData={mapData} />
+            {window.innerWidth >= 768 &&
+                <StatisticComponent cities={cities} mapData={mapData} />}
             <Alert
                 type="info"
                 message="Harita ile ilgili bilgiler için tıklayınız."
